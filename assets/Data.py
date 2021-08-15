@@ -1,7 +1,11 @@
+"""
+@author: tiannamen (FernandoNSC5)
+12/08/2021
+"""
 class Data():
-    def __init__(self, color, reset):
+    def __init__(self):
         self.__loadHeader()
-        self.__loadSteps(color, reset)
+        self.__loadSteps()
 
     def __loadHeader(self):
         self.VERSION = "V0.1.0"
@@ -9,8 +13,8 @@ class Data():
         self.LOGO = "                    ____          __                  \n  _________  ____  / __/__  _____/ /_____  _______  __\n / ___/ __ \/ __ \/ /_/ _ \/ ___/ __/ __ \/ ___/ / / /\n/ /__/ /_/ / / / / __/  __/ /__/ /_/ /_/ / /  / /_/ / \n\___/\____/_/ /_/_/  \___/\___/\__/\____/_/   \__, /  \n                                             /____/ \n"
         self.BR = "-------------------------------------------------------"
 
-    def __loadSteps(self, color, reset):
-        self.STEPS = ["[Step 1A]", "[Step 1B]", "[Step 1C]", "[Step 1D]", "[Step 1E]", "[Step 1F]", "[Step 1G]"]
+    def __loadSteps(self):
+        self.STEPS = [["[Step 1A]", False], ["[Step 1B]", False], ["[Step 1C]", True], ["[Step 1D]", False], ["[Step 1E]", True], ["[Step 1F]", True], ["[Step 1G]", True]]
         self.QUESTIONS = {
             "[Step 1A]" : "Define a namespace for the new Configuration (default=""): ",
             "[Step 1B]" : "Enter a precedence for the new Configuration (default=0): ",
