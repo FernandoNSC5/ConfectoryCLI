@@ -1,6 +1,8 @@
 import sys
 
 from PyInquirer.prompt import prompt
+from pprint import pprint
+import Processor
 sys.path.insert(1, 'assets/')
 import Data, Style
 
@@ -13,11 +15,17 @@ class Main():
     def __init__(self):
         self.data = Data.Data()
         self.style = Style.Style()
+        processor = Processor.Processor(self.data.STEPS)
 
-        self.answers = list()
+        anotherConfiguration = True
 
-        self.printHeader()
-        self.printQuestion()
+        while(anotherConfiguration):
+            self.answers = list()
+            self.printHeader()
+            self.printQuestion()
+            generatedCode = processor.processAnswers(self.answers, self.data.TEMPLATE)
+            print(generatedCode.replace("${BR}", "\n"))
+            anotherConfiguration = False
 
     def printHeader(self):
         print(self.style.RED + self.data.LOGO)
@@ -57,4 +65,4 @@ class Main():
         ]
 
 m = Main()
-print(m.answers)
+pprint(m.answers)

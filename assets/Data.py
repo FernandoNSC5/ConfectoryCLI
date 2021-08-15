@@ -6,6 +6,14 @@ class Data():
     def __init__(self):
         self.__loadHeader()
         self.__loadSteps()
+        self.__loadTemplates()
+        self.__loadTargetTypes()
+
+    def __loadTargetTypes(self):
+        self.TARGET_TYPES = {
+            "StringMapper"      : "String",
+            "PropertiesMapper"  : "Properties"
+        }
 
     def __loadHeader(self):
         self.VERSION = "V0.1.0"
@@ -24,3 +32,6 @@ class Data():
             "[Step 1F]" : ["Is the new configuration Required?", "Yes", "No"],
             "[Step 1G]" : ["Do you want to add another Configuration?", "Yes", "No"]
         }
+
+    def __loadTemplates(self):
+        self.TEMPLATE = "Configuration<${targetType}> config = Configuration.<${targetType}>builder()${BR}.namespace(\"[Step 1A]\")${BR}.precedence([Step 1B])${BR}.source(SourceFactory.[Step 1C](\"[Step 1D]\")${BR}.mapper(new [Step 1E]())${BR}.[Step 1F]()${BR}.build()"
