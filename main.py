@@ -1,6 +1,7 @@
 import sys
 
-from PyInquirer.prompt import prompt
+from PyInquirer import prompt
+import Processor
 sys.path.insert(1, 'assets/')
 import Data, Style
 
@@ -13,11 +14,18 @@ class Main():
     def __init__(self):
         self.data = Data.Data()
         self.style = Style.Style()
+        processor = Processor.Processor(self.data.STEPS)
 
-        self.answers = list()
+        anotherConfiguration = True
+        while(anotherConfiguration):
+            self.answers = list()
+            self.printHeader()
+            self.printQuestion()
+            generatedCode = processor.processAnswers(self.answers, self.data.TEMPLATE, self.data.TARGET_TYPES)
+            print(generatedCode.replace("${BR}", "\n\t\t\t\t"))
 
-        self.printHeader()
-        self.printQuestion()
+            if(self.answers[6]["[Step 1G]"] == "No"):
+                break
 
     def printHeader(self):
         print(self.style.RED + self.data.LOGO)
@@ -31,7 +39,7 @@ class Main():
             else:
                 question = self.buildQuestion(step[0], self.data.QUESTIONS[step[0]])
 
-            self.answers.append(prompt(question, style = self.style.CLI_FORMAT))
+            self.answers.append( prompt(question, style = self.style.CLI_FORMAT))
 
     def buildListQuestion(self, step, data):
         header = data[0]
@@ -52,9 +60,16 @@ class Main():
             {
                 'type'      : 'input',
                 'message'   : data,
-                'name'      : step
+                'name'      : step,
+                'validate'  : lambda entry: self.validate(entry, step) or "Mandatory field",
             }
         ]
 
+    def validate(self, cliEntry, step):
+        if (not self.data.METADATA[step][0]):
+            return True
+        elif(len(cliEntry) < 1):
+            return False
+        return True
+
 m = Main()
-print(m.answers)
