@@ -14,4 +14,5 @@ class Processor():
             template = template.replace(self.steps[i][0], answers[i][self.steps[i][0]])
         template = template.replace("${targetType}", targets[answers[4][self.steps[4][0]]])
         template = template.replace("Yes", "required")
+        template = template.replace("No", "optional")
         return template
