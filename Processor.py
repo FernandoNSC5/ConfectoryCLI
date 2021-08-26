@@ -8,8 +8,6 @@ class Processor():
         self.steps = steps
 
     def processAnswers(self, answers, template, targets):
-        if(answers[1][self.steps[1][0]] == ""):
-            answers[1][self.steps[1][0]] = '0'
         for i in range(7):
             template = template.replace(self.steps[i][0], answers[i][self.steps[i][0]])
         template = template.replace("${targetType}", targets[answers[4][self.steps[4][0]]])
