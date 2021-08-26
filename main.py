@@ -39,7 +39,15 @@ class Main():
             else:
                 question = self.buildQuestion(step[0], self.data.QUESTIONS[step[0]])
 
-            self.answers.append( prompt(question, style = self.style.CLI_FORMAT))
+            qAnswer = prompt(question, style = self.style.CLI_FORMAT)
+
+            if len(qAnswer) is 0:
+                if step[0] == self.data.STEPS[3][0]:
+                    print(self.style.RED + self.data.ERROR["REQUIRED_FIELD_CANCELED"])
+                    exit()
+                qAnswer = {step[0]: self.data.METADATA[step[0]][1]}
+
+            self.answers.append(qAnswer)
 
     def buildListQuestion(self, step, data):
         header = data[0]
