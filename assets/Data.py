@@ -10,7 +10,11 @@ class Data():
         self.__loadTemplates()
         self.__loadTargetTypes()
         self.__loadMetadata()
+        self.__loadErrorDictionary()
 
+    """
+    Loads the Target Types
+    """
     def __loadTargetTypes(self):
         self.TARGET_TYPES = {
             "StringMapper"      : "String",
@@ -63,7 +67,7 @@ class Data():
         self.QUESTIONS = {
             "[Step 1A]" : "Define a namespace for the new Configuration (default=""): ",
             "[Step 1B]" : "Enter a precedence for the new Configuration (default=0): ",
-            "[Step 1C]" : ["Choose a Source: ", "Dynamic", "Classpath File Source", "File Source"],
+            "[Step 1C]" : ["Choose a Source: ", "dynamic", "classpathFileSource", "fileSource"],
             "[Step 1D]" : "Enter the file/resource path (required): ",
             "[Step 1E]" : ["Choose a Mapper: ", "StringMapper", "PropertiesMapper"],
             "[Step 1F]" : ["Is the new configuration Required?", "Yes", "No"],
@@ -81,12 +85,12 @@ class Data():
     def __loadMetadata(self):
         self.METADATA = {
             "[Step 1A]" : [False, ""],
-            "[Step 1B]" : [False, 0],
-            "[Step 1C]" : [False, ""],
+            "[Step 1B]" : [False, "0"],
+            "[Step 1C]" : [False, "dynamic"],
             "[Step 1D]" : [True, ""],
-            "[Step 1E]" : [False, ""],
-            "[Step 1F]" : [False, ""],
-            "[Step 1G]" : [False, ""]
+            "[Step 1E]" : [False, "StringMapper"],
+            "[Step 1F]" : [False, "yes"],
+            "[Step 1G]" : [False, "no"]
         }
 
     """
@@ -94,3 +98,11 @@ class Data():
     """
     def __loadTemplates(self):
         self.TEMPLATE = "\n\n\tConfiguration<${targetType}> config = Configuration.<${targetType}>builder()${BR}.namespace(\"[Step 1A]\")${BR}.precedence([Step 1B])${BR}.source(SourceFactory.[Step 1C](\"[Step 1D]\")${BR}.mapper(new [Step 1E]())${BR}.[Step 1F]()${BR}.build()"
+
+    """
+    Loads the Error Dictionary
+    """
+    def __loadErrorDictionary(self):
+        self.ERROR = {
+            "REQUIRED_FIELD_CANCELED": "Exiting.. Required field cancelled by user."
+        }
